@@ -26,9 +26,9 @@
 
                         <form action="<?= base_url()?>kartupiutang/add_transaksi_langsung" method="POST" enctype="multipart/form-data" id="form-1">
                             <div class="alert alert-info"><i class="fa fa-info-circle text-info mr-1"></i>menu ini untuk menginputkan transaksi langsung</div>
-                            <input type="text" name="tipe" value="<?= $tipe?>">
-                            <input type="text" name="id" value="<?= $id?>">
-                            <input type="text" name="pengajar" value="<?= $kpq?>">
+                            <input type="hidden" name="tipe" value="<?= $tipe?>">
+                            <input type="hidden" name="id" value="<?= $id?>">
+                            <input type="hidden" name="pengajar" value="<?= $kpq?>">
                             <div class="form-group">
                                 <label for="nama_kwitansi">Nama</label>
                                 <input type="text" name="nama" class="form-control form-control-sm" value="<?= $nama?>">
@@ -72,8 +72,8 @@
 
                         <form action="<?= base_url()?>kartupiutang/add_piutang" method="POST" enctype="multipart/form-data" id="form-2">
                             <div class="alert alert-info"><i class="fa fa-info-circle text-info mr-1"></i>menu ini untuk menginputkan piutang</div>
-                            <input type="text" name="tipe" value="<?= $tipe?>">
-                            <input type="text" name="id" value="<?= $id?>">
+                            <input type="hidden" name="tipe" value="<?= $tipe?>">
+                            <input type="hidden" name="id" value="<?= $id?>">
                             <div class="form-group">
                                 <label for="nama_tagihan">Nama</label>
                                 <input type="text" name="nama" class="form-control form-control-sm" value="<?= $nama?>">
@@ -106,9 +106,9 @@
 
                         <form action="<?=base_url()?>kartupiutang/add_pembayaran" method="post" enctype="multipart/form-data" id="form-3">
                             <div class="alert alert-info"><i class="fa fa-info-circle text-info mr-1"></i>menu ini untuk menginputkan pembayaran piutang, pembayaran tagihan, dan menginputkan deposit</div>
-                            <input type="text" name="tipe" value="<?= $tipe?>">
-                            <input type="text" name="id" value="<?= $id?>">
-                            <input type="text" name="pengajar" value="<?= $kpq?>">
+                            <input type="hidden" name="tipe" value="<?= $tipe?>">
+                            <input type="hidden" name="id" value="<?= $id?>">
+                            <input type="hidden" name="pengajar" value="<?= $kpq?>">
                             <div class="form-group">
                                 <label for="nama_deposit">Nama</label>
                                 <input type="text" name="nama" class="form-control form-control-sm" value="<?= $nama?>">
@@ -128,6 +128,7 @@
                                     <option value="MMQ 1 TL">MMQ 1 Tahsin Lanjutan</option>
                                     <option value="MMQ 2 TA">MMQ 2 Tahfidz Anak</option>
                                     <option value="MMQ 2 TD">MMQ 2 Tahfidz Dewasa</option>
+                                    <option value="MMQ 2 TK">MMQ 2 Takhosus</option>
                                     <option value="MMQ 3">MMQ 3 Bahasa Arab</option>
                                     <option value="Piutang">Piutang</option>
                                 </select>

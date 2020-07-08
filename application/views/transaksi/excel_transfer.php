@@ -79,18 +79,19 @@
                             <th>Daftar PL</th>
                             <th>TA</th>
                             <th>TD</th>
+                            <th>TK</th>
                             <th>Lain2</th>
                         </tr>
                     </thead>
                     <tbody>
 
                         <?php $no = 0;
-                            $total = ["piutang" => 0, "tl" => 0, "ba" => 0, "pk" => 0, "pl" => 0, "buku" => 0, "pt3" => 0, "t1" => 0, "t2" => 0, "t3" => 0, "t4" => 0, "deposit" => 0, "daftar_reg" => 0, "daftar_pk" => 0, "daftar_pl" => 0, "ta" => 0, "td" => 0, "lain" => 0, "total" => 0];
+                            $total = ["piutang" => 0, "tl" => 0, "ba" => 0, "pk" => 0, "pl" => 0, "buku" => 0, "pt3" => 0, "t1" => 0, "t2" => 0, "t3" => 0, "t4" => 0, "deposit" => 0, "daftar_reg" => 0, "daftar_pk" => 0, "daftar_pl" => 0, "ta" => 0, "td" => 0, "tk" => 0, "lain" => 0, "total" => 0];
                         ?>
                         <?php foreach ($data as $i => $data) :?>
                             <?php 
 
-                                $subtotal = ["piutang" => 0, "tl" => 0, "ba" => 0, "pk" => 0, "pl" => 0, "buku" => 0, "pt3" => 0, "t1" => 0, "t2" => 0, "t3" => 0, "t4" => 0, "deposit" => 0, "daftar_reg" => 0, "daftar_pk" => 0, "daftar_pl" => 0, "ta" => 0, "td" => 0, "lain" => 0];
+                                $subtotal = ["piutang" => 0, "tl" => 0, "ba" => 0, "pk" => 0, "pl" => 0, "buku" => 0, "pt3" => 0, "t1" => 0, "t2" => 0, "t3" => 0, "t4" => 0, "deposit" => 0, "daftar_reg" => 0, "daftar_pk" => 0, "daftar_pl" => 0, "ta" => 0, "td" => 0, "tk" => 0, "lain" => 0];
                             
                                 foreach ($data['transaksi'] as $tgl) :?>
                                 <tr>
@@ -108,59 +109,62 @@
                                     <td><?= $tgl['uraian']?></td>
                                     <?php if ($tgl['keterangan'] == "Piutang") :?>
                                         <?php $subtotal['piutang'] += $tgl['nominal']?>
-                                        <td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                        <td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                     <?php elseif ($tgl['keterangan'] == "MMQ 1 TL") :?>
                                         <?php $subtotal['tl'] += $tgl['nominal']?>
-                                        <td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                        <td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                     <?php elseif ($tgl['keterangan'] == "MMQ 3 BA") :?>
                                         <?php $subtotal['ba'] += $tgl['nominal']?>
-                                        <td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                        <td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                     <?php elseif ($tgl['keterangan'] == "Bulanan PK") :?>
                                         <?php $subtotal['pk'] += $tgl['nominal']?>
-                                        <td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                        <td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                     <?php elseif ($tgl['keterangan'] == "Bulanan PL") :?>
                                         <?php $subtotal['pl'] += $tgl['nominal']?>
-                                        <td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                        <td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                     <?php elseif ($tgl['keterangan'] == "Buku") :?>
                                         <?php $subtotal['buku'] += $tgl['nominal']?>
-                                        <td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                        <td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                     <?php elseif ($tgl['keterangan'] == "MMQ 1 PT3") :?>
                                         <?php $subtotal['pt3'] += $tgl['nominal']?>
-                                        <td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                        <td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                     <?php elseif ($tgl['keterangan'] == "MMQ 1 T1") :?>
                                         <?php $subtotal['t1'] += $tgl['nominal']?>
-                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                     <?php elseif ($tgl['keterangan'] == "MMQ 1 T2") :?>
                                         <?php $subtotal['t2'] += $tgl['nominal']?>
-                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                     <?php elseif ($tgl['keterangan'] == "MMQ 1 T3") :?>
                                         <?php $subtotal['t3'] += $tgl['nominal']?>
-                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                     <?php elseif ($tgl['keterangan'] == "MMQ 1 T4") :?>
                                         <?php $subtotal['t4'] += $tgl['nominal']?>
-                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                     <?php elseif ($tgl['keterangan'] == "Deposit") :?>
                                         <?php $subtotal['deposit'] += $tgl['nominal']?>
-                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                     <?php elseif ($tgl['keterangan'] == "Pendaftaran Reguler") :?>
                                         <?php $subtotal['daftar_reg'] += $tgl['nominal']?>
-                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td>
+                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                     <?php elseif ($tgl['keterangan'] == "Pendaftaran PK") :?>
                                         <?php $subtotal['daftar_pk'] += $tgl['nominal']?>
-                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td>
+                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td><td></td>
                                     <?php elseif ($tgl['keterangan'] == "Pendaftaran PL") :?>
                                         <?php $subtotal['daftar_pl'] += $tgl['nominal']?>
-                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td>
+                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td><td></td>
                                     <?php elseif ($tgl['keterangan'] == "MMQ 2 TA") :?>
                                         <?php $subtotal['ta'] += $tgl['nominal']?>
-                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td>
+                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td><td></td>
                                     <?php elseif ($tgl['keterangan'] == "MMQ 2 TD") :?>
                                         <?php $subtotal['td'] += $tgl['nominal']?>
-                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td>
+                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td><td></td>
+                                    <?php elseif ($tgl['keterangan'] == "MMQ 2 TK") :?>
+                                        <?php $subtotal['tk'] += $tgl['nominal']?>
+                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td><td></td>
                                     <?php elseif ($tgl['keterangan'] == "Lainnya") :?>
                                         <?php $subtotal['lain'] += $tgl['nominal']?>
-                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td>
-                                    <?php endif;?>  
+                                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><?= rupiah($tgl['nominal'])?></td>
+                                    <?php endif;?>
                                 </tr>
                             <?php endforeach;?>
                             <tr style="background-color: yellow">
@@ -269,12 +273,18 @@
                                 </td>
                                 <td>
                                     <?php 
+                                        $total['tk'] += $subtotal['tk'];
+                                        echo rupiah($subtotal['tk']);
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php 
                                         $total['lain'] += $subtotal['lain'];
                                         echo rupiah($subtotal['lain']);
                                     ?>
                                 </td>
                                 <td><b><?php 
-                                    $sub = $subtotal['piutang']+$subtotal['tl']+$subtotal['ba']+$subtotal['pk']+$subtotal['pl']+$subtotal['buku']+$subtotal['pt3']+$subtotal['t1']+$subtotal['t2']+$subtotal['t3']+$subtotal['t4']+$subtotal['deposit']+$subtotal['daftar_reg']+$subtotal['daftar_pk']+$subtotal['daftar_pl']+$subtotal['ta']+$subtotal['td']+$subtotal['lain'];
+                                    $sub = $subtotal['piutang']+$subtotal['tl']+$subtotal['ba']+$subtotal['pk']+$subtotal['pl']+$subtotal['buku']+$subtotal['pt3']+$subtotal['t1']+$subtotal['t2']+$subtotal['t3']+$subtotal['t4']+$subtotal['deposit']+$subtotal['daftar_reg']+$subtotal['daftar_pk']+$subtotal['daftar_pl']+$subtotal['ta']+$subtotal['td']+$subtotal['tk']+$subtotal['lain'];
 
                                     $total['total'] += $sub;
                                     
@@ -337,8 +347,10 @@
                                     <?=rupiah($total['td'])?>
                                 </td>
                                 <td>
-                                    <?=rupiah($total['lain']);
-                                    ?>
+                                    <?=rupiah($total['tk'])?>
+                                </td>
+                                <td>
+                                    <?=rupiah($total['lain']);?>
                                 </td>
                                 <td><b><?= rupiah($total['total'])?></b>
                                 </td>

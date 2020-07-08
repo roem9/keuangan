@@ -250,15 +250,17 @@
                                             <th><center>No</center></th>
                                             <th><center>Periode</center></th>
                                             <th><center>KBM</center></th>
-                                            <?php 
-                                                $no = 0;
-                                                foreach ($kbm['kbm'] as $kbm) :?>
-                                                <tr>
-                                                    <td><center><?= ++$no?></center></td>
-                                                    <td><?= $bulan[$kbm['bulan']] . " " . $kbm['tahun'] ?></td>
-                                                    <td><center><?= $kbm['kbm']?></center></td>
-                                                </tr>
-                                            <?php endforeach;?>
+                                            <?php if($kbm):?>
+                                                <?php 
+                                                    $no = 0;
+                                                    foreach ($kbm['kbm'] as $kbm) :?>
+                                                    <tr>
+                                                        <td><center><?= ++$no?></center></td>
+                                                        <td><?= $bulan[$kbm['bulan']] . " " . $kbm['tahun'] ?></td>
+                                                        <td><center><?= $kbm['kbm']?></center></td>
+                                                    </tr>
+                                                <?php endforeach;?>
+                                            <?php endif;?>
                                         </tr>
                                         </thead>
                                         <tbody>
