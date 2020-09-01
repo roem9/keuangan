@@ -49,11 +49,14 @@
                                 <th>No</th>
                                 <th>Status</th>
                                 <th>Koor</th>
-                                <th>PJ</th>
+                                <th style="width: 15%">PJ</th>
                                 <th>No HP</th>
                                 <th>Tgl Mulai</th>
                                 <th>Pengajar</th>
                                 <th>Piutang</th>
+                                <?php if ($title == 'Piutang Kelas Pv Luar' || $title == 'Piutang Kelas Pv Instansi'):?>
+                                    <th style="width: 8%">Tipe</th>
+                                <?php endif;?>
                             </thead>
                             <tbody id="tbod">
                                 <?php $no = 0;
@@ -86,6 +89,9 @@
                                             <td class="bg-danger text-white"><a class="text-light" href="<?=base_url()?>kartupiutang/kelas/<?=$kelas['id_kelas']?>"><?= rupiah(($kelas['bayar'] - $kelas['piutang']))?></a></td>
                                         <?php elseif(($kelas['bayar'] - $kelas['piutang']) > 0):?>
                                             <td class="bg-success text-white"><a class="text-light" href="<?=base_url()?>kartupiutang/kelas/<?=$kelas['id_kelas']?>"><?= rupiah(($kelas['bayar'] - $kelas['piutang']))?></a></td>
+                                        <?php endif;?>
+                                        <?php if ($title == 'Piutang Kelas Pv Luar' || $title == 'Piutang Kelas Pv Instansi'):?>
+                                            <td><center><a href="<?= base_url()?>piutang/edit_ket/<?= $kelas['id_kelas'].'/'.str_replace(' ', '', $kelas['ket'])?>" onclick="return confirm('Yakin akan mengubah tipe kelas?')" class="btn btn-sm btn-outline-info"><?= $kelas['ket']?></a></center></td>
                                         <?php endif;?>
                                     </tr>
                                 <?php endforeach;?>

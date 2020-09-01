@@ -69,12 +69,11 @@
                 <td style="padding-left: 150px"><?= $data['nama_transfer']?></td>
             </tr>
             <tr>
-                <td><?= $data['nama_transfer']?></td>
+                <td rowspan=2 style="vertical-align:top"><?= $data['nama_transfer']?></td>
                 <td style="padding-left: 150px"><?= ucfirst(terbilang($data['nominal']))?> rupiah</td>
             </tr>
             <tr>
-                <td></td>
-                <td></td>
+                <td>Alamat &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ml-3"><?= $data['alamat']?></span></td>
             </tr>
             <tr>
                 <td><?= $data['alamat']?></td>

@@ -3,6 +3,7 @@
         public function __construct(){
             parent::__construct();
             $this->load->model('Keuangan_model');
+            $this->load->model('Main_model');
             
             if($this->session->userdata('status') != "login"){
                 $this->session->set_flashdata('flash', 'Maaf, Anda harus login terlebih dahulu');
@@ -77,7 +78,36 @@
 
             $data['kelas'] = [];
 
-            $kelas = $this->Keuangan_model->get_kelas_pv_luar();
+            $kelas = $this->Main_model->get_all("kelas_pv_luar", "ket <> 'pv instansi'", "nama_peserta");
+            foreach ($kelas as $key => $kelas) {
+                $data['kelas'][$key] = $kelas;
+                // tagihan
+                $tagihan = $this->Keuangan_model->get_total_tagihan_kelas($kelas['id_kelas']);
+                // deposit
+                $deposit = $this->Keuangan_model->get_total_deposit_kelas($kelas['id_kelas']);
+                // bayar cash
+                $cash = $this->Keuangan_model->get_total_cash_kelas($kelas['id_kelas']);
+                // bayar transfer
+                $transfer = $this->Keuangan_model->get_total_transfer_kelas($kelas['id_kelas']);
+
+                $data['kelas'][$key]['piutang'] =  $tagihan['total'] + $deposit['total'] ;
+
+                $data['kelas'][$key]['bayar'] = $transfer['total'] + $cash['total'];
+                $data['kelas'][$key]['tagihan'] = $this->Keuangan_model->get_tagihan_kelas($kelas['id_kelas']);
+            }
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar');
+            $this->load->view('piutang/piutang_kelas', $data);
+            $this->load->view('templates/footer');
+        }
+
+        public function pvInstansi(){
+            $data['title'] = 'Piutang Kelas Pv Instansi';
+
+            $data['kelas'] = [];
+
+            $kelas = $this->Main_model->get_all("kelas_pv_luar", ["ket" => "pv instansi"], "nama_peserta");
             foreach ($kelas as $key => $kelas) {
                 $data['kelas'][$key] = $kelas;
                 // tagihan
@@ -254,6 +284,22 @@
             
             $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">Berhasil <strong>mengubah</strong> pj kelas<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+
+        public function edit_ket($id, $ket){
+            if($ket == "pvinstansi"){
+                $data = [
+                    "ket" => "pv luar"
+                ];
+                $this->Main_model->edit_data("kelas", ["id_kelas" => $id], $data);
+            } else if($ket == "pvluar"){
+                $data = [
+                    "ket" => "pv instansi"
+                ];
+                $this->Main_model->edit_data("kelas", ["id_kelas" => $id], $data);
+            }
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">Berhasil <strong>mengubah</strong> tipe kelas<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect($_SERVER['HTTP_REFERER']);
         }
     }
