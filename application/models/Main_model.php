@@ -47,10 +47,15 @@ class Main_model extends CI_MODEL{
         return $nominal;
     }
 
-    public function get_last_id($table, $col){
+    public function get_last_id($table, $col, $where = "", $order_by = ""){
         $this->db->select($col);
         $this->db->from($table);
-        $this->db->order_by($col, "DESC");
+        if($where)
+            $this->db->where($where);
+        if($order_by)
+            $this->db->order_by($order_by, "DESC");
+        else
+            $this->db->order_by($col, "DESC");
         return $this->db->get()->row_array();
     }
     

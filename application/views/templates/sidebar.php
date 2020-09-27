@@ -56,6 +56,12 @@
       </li>
 
       <li class="nav-item" id="laporan">
+        <a class="nav-link" href="<?= base_url()?>ppu/">
+          <i class="fas fa-fw fa-share-alt"></i>
+          <span>PPU</span></a>
+      </li>
+      
+      <li class="nav-item" id="laporan">
         <a class="nav-link" href="#modal-laporan" data-toggle="modal">
           <i class="fas fa-fw fa-money-check-alt"></i>
           <span>laporan</span></a>

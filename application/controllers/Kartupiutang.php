@@ -459,58 +459,79 @@ class KartuPiutang extends CI_CONTROLLER{
                 $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">Berhasil melakukan transaksi langsung dengan metode <b>deposit</b><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             } else if($metode == "Cash"){
                 // saat pembayaran cash insert tagihan yang berstatus lunas dan pembayaran
-                // tagihan
-                    // $id_tagihan = $this->Main_model->get_last_id_tagihan();
-                    $id_tagihan = $this->Main_model->get_last_id("tagihan", "id_tagihan");
-                    $id_tagihan = $id_tagihan['id_tagihan'] + 1;
-
-                    $data = [
-                        "id_tagihan" => $id_tagihan,
-                        "tgl_tagihan" => $this->input->post("tgl"),
-                        "nama_tagihan" => $this->input->post("nama"),
-                        "uraian" => $this->input->post("uraian"),
-                        "nominal" => $this->Main_model->nominal($this->input->post("nominal")),
-                        "status" => "lunas"
-                    ];
-                    $this->Main_model->add_data("tagihan", $data);
-
-                    // tagihan sesuai tipe
-                        if($tipe == "peserta"){
-                            $data = [
-                                "id_tagihan" => $id_tagihan,
-                                "id_peserta" => $this->input->post("id", TRUE)
-                            ];
-                            $this->Main_model->add_data("tagihan_peserta", $data);
-                        } else  if($tipe == "kelas"){
-                            $data = [
-                                "id_tagihan" => $id_tagihan,
-                                "id_kelas" => $this->input->post("id", TRUE)
-                            ];
-                            $this->Main_model->add_data("tagihan_kelas", $data);
-                        } else if($tipe == "kpq"){
-                            $data = [
-                                "id_tagihan" => $id_tagihan,
-                                "nip" => $this->input->post("id", TRUE)
-                            ];
-                            $this->Main_model->add_data("tagihan_kpq", $data);
-                        }
-                    // tagihan sesuai tipe
-                // tagihan
+                if($this->input->post("tgl") >= "2020-10-01"){
+                    // tagihan
+                        // $id_tagihan = $this->Main_model->get_last_id_tagihan();
+                        $id_tagihan = $this->Main_model->get_last_id("tagihan", "id_tagihan");
+                        $id_tagihan = $id_tagihan['id_tagihan'] + 1;
+    
+                        $data = [
+                            "id_tagihan" => $id_tagihan,
+                            "tgl_tagihan" => $this->input->post("tgl"),
+                            "nama_tagihan" => $this->input->post("nama"),
+                            "uraian" => $this->input->post("uraian"),
+                            "nominal" => $this->Main_model->nominal($this->input->post("nominal")),
+                            "status" => "lunas"
+                        ];
+                        $this->Main_model->add_data("tagihan", $data);
+    
+                        // tagihan sesuai tipe
+                            if($tipe == "peserta"){
+                                $data = [
+                                    "id_tagihan" => $id_tagihan,
+                                    "id_peserta" => $this->input->post("id", TRUE)
+                                ];
+                                $this->Main_model->add_data("tagihan_peserta", $data);
+                            } else  if($tipe == "kelas"){
+                                $data = [
+                                    "id_tagihan" => $id_tagihan,
+                                    "id_kelas" => $this->input->post("id", TRUE)
+                                ];
+                                $this->Main_model->add_data("tagihan_kelas", $data);
+                            } else if($tipe == "kpq"){
+                                $data = [
+                                    "id_tagihan" => $id_tagihan,
+                                    "nip" => $this->input->post("id", TRUE)
+                                ];
+                                $this->Main_model->add_data("tagihan_kpq", $data);
+                            }
+                        // tagihan sesuai tipe
+                    // tagihan
+                }
                 // pembayaran
                     // $id_pembayaran = $this->Main_model->get_last_id_pembayaran();
-                    $id_pembayaran = $this->Main_model->get_last_id("pembayaran", "id_pembayaran");
-                    $id_pembayaran = $id_pembayaran['id_pembayaran'] + 1;
-                    $data = [
-                        "id_pembayaran" => $id_pembayaran,
-                        "nama_pembayaran" => $this->input->post("nama"),
-                        "uraian" => $this->input->post('uraian', TRUE),
-                        "nominal" => $this->Main_model->nominal($this->input->post("nominal")),
-                        "metode" => $metode,
-                        "tgl_pembayaran" => $this->input->post("tgl"),
-                        "keterangan" => $this->input->post("keterangan", TRUE),
-                        "pengajar" => $this->input->post("pengajar", TRUE)
-                    ];
-                    $this->Main_model->add_data("pembayaran", $data);
+                    if($this->input->post("tgl") < "2020-10-01"){
+                        $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">Gagal menambahkan transaksi, tanggal yang Anda masukkan salah<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                        redirect($_SERVER['HTTP_REFERER']);
+                    } else {
+                        $bulan = date("m", strtotime($this->input->post("tgl")));
+                        $tahun = date("Y", strtotime($this->input->post("tgl")));
+                        $id = $this->Main_model->get_last_id("pembayaran", "id_pembayaran", "MONTH(tgl_pembayaran) = '$bulan' AND YEAR(tgl_pembayaran) = '$tahun'");
+                        $id = substr($id['id_pembayaran'], -3) + 1;
+                        
+                        // id cash
+                            if($id >= 1 && $id < 10){
+                                $id_pembayaran = date('ymd', strtotime($this->input->post("tgl")))."00".$id;
+                            } else if($id >= 10 && $id < 100){
+                                $id_pembayaran = date('ymd', strtotime($this->input->post("tgl")))."0".$id;
+                            } else if($id >= 100 && $id < 1000){
+                                $id_pembayaran = date('ymd', strtotime($this->input->post("tgl"))).$id;
+                            }
+                        // id cash
+
+                        // $id_pembayaran = $id_pembayaran['id_pembayaran'] + 1;
+                        $data = [
+                            "id_pembayaran" => $id_pembayaran,
+                            "nama_pembayaran" => $this->input->post("nama"),
+                            "uraian" => $this->input->post('uraian', TRUE),
+                            "nominal" => $this->Main_model->nominal($this->input->post("nominal")),
+                            "metode" => $metode,
+                            "tgl_pembayaran" => $this->input->post("tgl"),
+                            "keterangan" => $this->input->post("keterangan", TRUE),
+                            "pengajar" => $this->input->post("pengajar", TRUE)
+                        ];
+                        $this->Main_model->add_data("pembayaran", $data);
+                    }
 
                     // pembayaran sesuai tipe
                         if($tipe == "peserta"){
