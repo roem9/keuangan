@@ -32,6 +32,10 @@ class Ppu extends CI_CONTROLLER{
             $i++;
         }
 
+        usort($data['ppu'], function($a, $b) {
+            return $a['tgl'] < $b['tgl']?1:-1;
+        });
+
         // var_dump($data);
         $this->load->view("templates/header", $data);
         $this->load->view("templates/sidebar");

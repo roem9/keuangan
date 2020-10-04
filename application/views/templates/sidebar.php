@@ -55,7 +55,7 @@
         </div>
       </li>
 
-      <li class="nav-item" id="laporan">
+      <li class="nav-item" id="ppu">
         <a class="nav-link" href="<?= base_url()?>ppu/">
           <i class="fas fa-fw fa-share-alt"></i>
           <span>PPU</span></a>

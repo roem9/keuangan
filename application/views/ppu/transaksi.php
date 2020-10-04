@@ -196,7 +196,7 @@
 </div>
 
 <script>
-    $("#piutang").addClass("active")
+    $("#ppu").addClass("active")
 
     $(".modalTransaksi").click(function(){
         $('#formInput').trigger("reset");
