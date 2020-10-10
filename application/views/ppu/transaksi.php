@@ -99,7 +99,7 @@
                     </div>
                     <div class="form-group">
                         <label for="tgl">Tgl</label>
-                        <input type="date" name="tgl" id="tgl" class="form-control form-control-sm" value="<?= date('Y-m-d')?>" required>
+                        <input type="date" name="tgl" id="tgl" class="form-control form-control-sm" value="" readonly>
                     </div>
                     <div class="form-group">
                         <label for="metode">Metode Pembayaran</label>
@@ -174,7 +174,7 @@
                                                 <td><?= rupiah($detail['nominal'])?></td>
                                                 <td><?= $detail['metode']?></td>
                                                 <?php if($detail['metode'] == "Cash"):?>
-                                                    <td><center>-</center></td>
+                                                    <td><a href="<?=base_url()?>ppu/kuitansi_cash/<?= $detail['id']?>" target=_blank><center><i class="fa fa-print"></i></center></a></td>
                                                 <?php elseif($detail['metode'] == "Transfer"):?>
                                                     <td><a href="<?=base_url()?>ppu/kuitansi_transfer/<?= $detail['id']?>" target=_blank><center><i class="fa fa-print"></i></center></a></td>
                                                 <?php endif;?>
@@ -252,6 +252,8 @@
     
     // modal edit transfer
         $(".modalEditTransfer").click(function(){
+            $('#formInput').trigger("reset");
+            
             let jenis = ["Al-Quran", "Ambulance","Infaq", "P2J", "Waqaf", "Zakat"];
             $("#modal-edit").html("Edit Transaksi");
             let id = $(this).data("id");

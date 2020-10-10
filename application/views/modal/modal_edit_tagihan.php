@@ -16,7 +16,7 @@
           </div>
           <div class="form-group">
             <label for="tgl_transaksi">Tanggal</label>
-            <input type="date" name="tgl" id="tgl_transaksi" class="form-control form-control-sm">
+            <input type="date" name="tgl" id="tgl_transaksi" class="form-control form-control-sm" readonly>
           </div>
           <div class="form-group">
             <label for="keterangan">Keterangan</label>

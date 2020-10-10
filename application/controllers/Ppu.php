@@ -51,7 +51,7 @@ class Ppu extends CI_CONTROLLER{
         $defaultFontConfig = (new Mpdf\Config\FontVariables())->getDefaults();
         $fontData = $defaultFontConfig['fontdata'];
 
-        $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4-L', 'margin_top' => '14', 'fontDir' => array_merge($fontDirs, [__DIR__ . 'assets/font',]),
+        $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4-P', 'fontDir' => array_merge($fontDirs, [__DIR__ . 'assets/font',]),
         'fontdata' => $fontData + [
             'candara' => [
                 'R' => 'Candara.ttf'
@@ -65,37 +65,32 @@ class Ppu extends CI_CONTROLLER{
         $kwitansi['id'] = substr($kwitansi['data']['id'],0, 3)."/PPU-Im/".date('m', strtotime($kwitansi['data']['tgl']))."/".date('Y', strtotime($kwitansi['data']['tgl']));
 
         // var_dump($kwitansi);
-        $data = $this->load->view('ppu/kuitansi_transfer', $kwitansi, TRUE);
+        $data = $this->load->view('ppu/kuitansi', $kwitansi, TRUE);
         $mpdf->WriteHTML($data);
         $mpdf->Output();
     }
 
     public function kuitansi_cash($id){
-        $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4-P']);
+        
+        $defaultConfig = (new Mpdf\Config\ConfigVariables())->getDefaults();
+        $fontDirs = $defaultConfig['fontDir'];
+
+        $defaultFontConfig = (new Mpdf\Config\FontVariables())->getDefaults();
+        $fontData = $defaultFontConfig['fontdata'];
+
+        $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4-P', 'fontDir' => array_merge($fontDirs, [__DIR__ . 'assets/font',]),
+        'fontdata' => $fontData + [
+            'candara' => [
+                'R' => 'Candara.ttf'
+            ]
+        ],
+        'default_font' => 'candara']);
         
         // $kwitansi['kwitansi'] = $this->Fo_model->get_data_pembayaran($id);
-        $kwitansi['kwitansi'] = $this->Fo_model->get_one("pembayaran", ["MD5(id_pembayaran) = " => $id]);
-        $bulan = date("m", strtotime($kwitansi['kwitansi']['tgl_pembayaran']));
-        $tahun = date("y", strtotime($kwitansi['kwitansi']['tgl_pembayaran']));
-        $tgl = date("d", strtotime($kwitansi['kwitansi']['tgl_pembayaran']));
-        $id = $kwitansi['kwitansi']['id_pembayaran'];
-        if($id > 0 && $id < 10){
-            $id = '00000'.$id;
-        } else if($id >= 10 && $id < 100){
-            $id = '0000'.$id;
-        } else if($id >= 100 && $id < 1000){
-            $id = '000'.$id;
-        } else if($id >= 1000 && $id < 10000){
-            $id = '00'.$id;
-        } else if($id >= 10000 && $id < 100000){
-            $id = '0'.$id;
-        } else {
-            $id = $id;
-        };
-
-        $kwitansi['id'] = $tahun.$bulan.$id;
-        // var_dump($kwitansi);
-		$data = $this->load->view('transaksi/cetak_kuitansi', $kwitansi, TRUE);
+        $kwitansi['data'] = $this->Main_model->get_one("ppu_cash", ["id" => $id]);
+        
+        $kwitansi['id'] = "PPU" . $kwitansi['data']['id'];
+		$data = $this->load->view('ppu/kuitansi', $kwitansi, TRUE);
         $mpdf->WriteHTML($data);
 		$mpdf->Output();
     }
@@ -197,7 +192,7 @@ class Ppu extends CI_CONTROLLER{
                 "nama" => $this->input->post("nama", TRUE),
                 "jenis" => $jenis,
                 "tgl" => $this->input->post("tgl", TRUE),
-                "alamat" => $this->input->post("tgl", TRUE),
+                "alamat" => $this->input->post("alamat", TRUE),
                 "nominal" => $this->Main_model->nominal($this->input->post("nominal", TRUE))
             ];
 
