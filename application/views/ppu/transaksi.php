@@ -49,6 +49,10 @@
                             <textarea name="alamat" id="alamat" class="form-control form-control-sm" required></textarea>
                         </div>
                         <div class="form-group">
+                            <label for="keterangan">Keterangan</label>
+                            <textarea name="keterangan" id="keterangan" class="form-control form-control-sm"></textarea>
+                        </div>
+                        <div class="form-group">
                             <label for="nominal_deposit">Nominal</label>
                             <input type="text" name="nominal" id="nominal_deposit" class="form-control form-control-sm" required>
                         </div>
@@ -108,6 +112,10 @@
                     <div class="form-group">
                         <label for="alamat">Alamat</label>
                         <textarea name="alamat" id="alamat" class="form-control form-control-sm" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="keterangan">Keterangan</label>
+                        <textarea name="keterangan" id="keterangan" class="form-control form-control-sm"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="nominal_deposit">Nominal</label>
@@ -234,6 +242,7 @@
                     $("[name = 'nama']").val(data.nama);
                     $("[name = 'tgl']").val(data.tgl);
                     $("[name = 'alamat']").val(data.alamat);
+                    $("[name = 'keterangan']").val(data.keterangan);
                     $("[name = 'metode']").val("Cash");
                     $("[name = 'nominal']").val(formatRupiah(data.nominal, 'Rp. '));
 
@@ -253,7 +262,7 @@
     // modal edit transfer
         $(".modalEditTransfer").click(function(){
             $('#formInput').trigger("reset");
-            
+
             let jenis = ["Al-Quran", "Ambulance","Infaq", "P2J", "Waqaf", "Zakat"];
             $("#modal-edit").html("Edit Transaksi");
             let id = $(this).data("id");
@@ -270,6 +279,7 @@
                     $("[name = 'nama']").val(data.nama);
                     $("[name = 'tgl']").val(data.tgl);
                     $("[name = 'alamat']").val(data.alamat);
+                    $("[name = 'keterangan']").val(data.keterangan);
                     $("[name = 'metode']").val("Transfer");
                     $("[name = 'nominal']").val(formatRupiah(data.nominal, 'Rp. '));
 

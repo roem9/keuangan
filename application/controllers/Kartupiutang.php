@@ -506,9 +506,9 @@ class KartuPiutang extends CI_CONTROLLER{
                     } else {
                         $bulan = date("m", strtotime($this->input->post("tgl")));
                         $tahun = date("Y", strtotime($this->input->post("tgl")));
-                        $id = $this->Main_model->get_last_id("pembayaran", "id_pembayaran", "MONTH(tgl_pembayaran) = '$bulan' AND YEAR(tgl_pembayaran) = '$tahun'");
+                        $id = $this->Main_model->get_last_id_cash();
                         if($id){
-                            $id = substr($id['id_pembayaran'], -3) + 1;
+                            $id = $id['id'] + 1;
                         } else {
                             $id = 1;
                         }
@@ -705,9 +705,9 @@ class KartuPiutang extends CI_CONTROLLER{
                 } else {
                     $bulan = date("m", strtotime($this->input->post("tgl")));
                     $tahun = date("Y", strtotime($this->input->post("tgl")));
-                    $id = $this->Main_model->get_last_id("pembayaran", "id_pembayaran", "MONTH(tgl_pembayaran) = '$bulan' AND YEAR(tgl_pembayaran) = '$tahun'");
+                    $id = $this->Main_model->get_last_id_cash();
                     if($id){
-                        $id = substr($id['id_pembayaran'], -3) + 1;
+                        $id = $id['id'] + 1;
                     } else {
                         $id = 1;
                     }

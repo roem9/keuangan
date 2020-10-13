@@ -112,15 +112,17 @@ class Ppu extends CI_CONTROLLER{
               "jenis" => $jenis,
               "tgl" => $this->input->post("tgl", TRUE),
               "alamat" => $this->input->post("alamat", TRUE),
+              "keterangan" => $this->input->post("keterangan", TRUE),
               "nominal" => $this->Main_model->nominal($this->input->post("nominal", TRUE)),
             ];
 
             if($metode == "Cash"){
                 $bulan = date("m", strtotime($this->input->post("tgl")));
                 $tahun = date("Y", strtotime($this->input->post("tgl")));
-                $id = $this->Main_model->get_last_id("ppu_cash", "id", "MONTH(tgl) = '$bulan' AND YEAR(tgl) = '$tahun'");
+                // $id = $this->Main_model->get_last_id("ppu_cash", "id", "MONTH(tgl) = '$bulan' AND YEAR(tgl) = '$tahun'");
+                $id = $this->Main_model->get_last_id_ppu_cash();
                 if($id){
-                    $id = substr($id['id'], -3) + 1;
+                    $id = $id['id'] + 1;
                 } else {
                     $id = 1;
                 }
@@ -141,9 +143,10 @@ class Ppu extends CI_CONTROLLER{
                 // $data['id'] = ;
                 $bulan = date("m", strtotime($this->input->post("tgl")));
                 $tahun = date("Y", strtotime($this->input->post("tgl")));
-                $id = $this->Main_model->get_last_id("ppu_transfer", "id", "MONTH(tgl) = '$bulan' AND YEAR(tgl) = '$tahun'");
+                // $id = $this->Main_model->get_last_id("ppu_transfer", "id", "MONTH(tgl) = '$bulan' AND YEAR(tgl) = '$tahun'");
+                $id = $this->Main_model->get_last_id_transfer();
                 if($id){
-                    $id = substr($id['id'], 0, 3) + 1;
+                    $id = $id['id'] + 1;
                 } else {
                     $id = 1;
                 }
@@ -193,6 +196,7 @@ class Ppu extends CI_CONTROLLER{
                 "jenis" => $jenis,
                 "tgl" => $this->input->post("tgl", TRUE),
                 "alamat" => $this->input->post("alamat", TRUE),
+                "keterangan" => $this->input->post("keterangan", TRUE),
                 "nominal" => $this->Main_model->nominal($this->input->post("nominal", TRUE))
             ];
 

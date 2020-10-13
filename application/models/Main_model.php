@@ -59,6 +59,17 @@ class Main_model extends CI_MODEL{
         return $this->db->get()->row_array();
     }
     
+    public function get_last_id_cash(){
+        $bulan = date("m", strtotime($this->input->post("tgl")));
+        $tahun = date("Y", strtotime($this->input->post("tgl")));
+        $this->db->select("substr(id_pembayaran, -3) as id");
+        $this->db->from("pembayaran");
+        $this->db->where("MONTH(tgl_pembayaran)", $bulan);
+        $this->db->where("YEAR(tgl_pembayaran)", $tahun);
+        $this->db->order_by("id", "DESC");
+        return $this->db->get()->row_array();
+    }
+
     public function get_last_id_transfer(){
         $bulan = date("m", strtotime($this->input->post("tgl")));
         $tahun = date("Y", strtotime($this->input->post("tgl")));
@@ -66,6 +77,28 @@ class Main_model extends CI_MODEL{
         $this->db->from("transfer");
         $this->db->where("MONTH(tgl_transfer)", $bulan);
         $this->db->where("YEAR(tgl_transfer)", $tahun);
+        $this->db->order_by("id", "DESC");
+        return $this->db->get()->row_array();
+    }
+    
+    public function get_last_id_ppu_cash(){
+        $bulan = date("m", strtotime($this->input->post("tgl")));
+        $tahun = date("Y", strtotime($this->input->post("tgl")));
+        $this->db->select("substr(id, -3) as id");
+        $this->db->from("ppu_cash");
+        $this->db->where("MONTH(tgl)", $bulan);
+        $this->db->where("YEAR(tgl)", $tahun);
+        $this->db->order_by("id", "DESC");
+        return $this->db->get()->row_array();
+    }
+    
+    public function get_last_id_ppu_transfer(){
+        $bulan = date("m", strtotime($this->input->post("tgl")));
+        $tahun = date("Y", strtotime($this->input->post("tgl")));
+        $this->db->select("substr(id, 1, 3) as id");
+        $this->db->from("ppu_transfer");
+        $this->db->where("MONTH(tgl)", $bulan);
+        $this->db->where("YEAR(tgl)", $tahun);
         $this->db->order_by("id", "DESC");
         return $this->db->get()->row_array();
     }
