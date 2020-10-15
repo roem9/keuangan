@@ -86,6 +86,7 @@
                         <option value="piutang pv luar">Piutang Pv Luar</option>
                         <!-- <option value="piutang reguler">Piutang Reguler</option> -->
                         <option value="transfer">Transfer</option>
+                        <option value="ppu">PPU</option>
                       </select>
                     </div>
                     <div class="form-group">

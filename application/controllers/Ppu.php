@@ -95,6 +95,10 @@ class Ppu extends CI_CONTROLLER{
 		$mpdf->Output();
     }
 
+    public function laporan_ppu(){
+        // $cash = $this->Main_model->get_all("ppu_cash", )
+    }
+
     // add
         public function add_transaksi(){
             // var_dump($_POST);
@@ -144,7 +148,7 @@ class Ppu extends CI_CONTROLLER{
                 $bulan = date("m", strtotime($this->input->post("tgl")));
                 $tahun = date("Y", strtotime($this->input->post("tgl")));
                 // $id = $this->Main_model->get_last_id("ppu_transfer", "id", "MONTH(tgl) = '$bulan' AND YEAR(tgl) = '$tahun'");
-                $id = $this->Main_model->get_last_id_transfer();
+                $id = $this->Main_model->get_last_id_ppu_transfer();
                 if($id){
                     $id = $id['id'] + 1;
                 } else {
@@ -209,4 +213,5 @@ class Ppu extends CI_CONTROLLER{
             $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">Berhasil mengubah data transaksi<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect($_SERVER['HTTP_REFERER']);
         }
+    // edit
 }
