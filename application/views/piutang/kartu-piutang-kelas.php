@@ -476,6 +476,16 @@
     // modal invoice
     
     // modal transaksi
+        $("select[name='metode']").change(function(){
+            let id = $(this).val();
+            console.log(id)
+            if(id == "Transfer"){
+                $("input[name='alamat']").removeAttr("readonly");
+            } else {
+                $("input[name='alamat']").prop('readonly', true);
+            }
+        })
+        
         $("#form-2").hide();
         $("#form-3").hide();
         $("#btn-form-1").addClass("active");

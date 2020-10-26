@@ -622,7 +622,7 @@ class KartuPiutang extends CI_CONTROLLER{
                         "nominal" => $this->Main_model->nominal($this->input->post("nominal")),
                         "keterangan" => $this->input->post("keterangan"),
                         "metode" => $this->input->post("metode"),
-                        "alamat" => ''
+                        "alamat" => $this->input->post("alamat")
                     ];
                     $this->Main_model->add_data("transfer", $data);
                     // transfer sesuai tipe
@@ -800,7 +800,7 @@ class KartuPiutang extends CI_CONTROLLER{
                         "nominal" => $this->Main_model->nominal($this->input->post("nominal")),
                         "keterangan" => $this->input->post("keterangan"),
                         "metode" => $this->input->post("metode"),
-                        "alamat" => ''
+                        "alamat" => $this->input->post("alamat")
                     ];
                     $this->Main_model->add_data("transfer", $data);
                     // transfer sesuai tipe

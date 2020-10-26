@@ -469,35 +469,45 @@
     // modal eit invoice
 
     // modal transaksi
+        $("select[name='metode']").change(function(){
+            let id = $(this).val();
+            console.log(id)
+            if(id == "Transfer"){
+                $("input[name='alamat']").removeAttr("readonly");
+            } else {
+                $("input[name='alamat']").prop('readonly', true);
+            }
+        })
+        
         $("#form-2").hide();
         $("#form-3").hide();
         $("#btn-form-1").addClass("active");
 
         $("#btn-form-1").click(function(){
-        $("#form-1").show();
-        $("#form-2").hide();
-        $("#form-3").hide();
-        $("#btn-form-1").addClass("active");
-        $("#btn-form-2").removeClass("active");
-        $("#btn-form-3").removeClass("active");
+            $("#form-1").show();
+            $("#form-2").hide();
+            $("#form-3").hide();
+            $("#btn-form-1").addClass("active");
+            $("#btn-form-2").removeClass("active");
+            $("#btn-form-3").removeClass("active");
         })
         
         $("#btn-form-2").click(function(){
-        $("#form-1").hide();
-        $("#form-2").show();
-        $("#form-3").hide();
-        $("#btn-form-1").removeClass("active");
-        $("#btn-form-2").addClass("active");
-        $("#btn-form-3").removeClass("active");
+            $("#form-1").hide();
+            $("#form-2").show();
+            $("#form-3").hide();
+            $("#btn-form-1").removeClass("active");
+            $("#btn-form-2").addClass("active");
+            $("#btn-form-3").removeClass("active");
         })
         
         $("#btn-form-3").click(function(){
-        $("#form-1").hide();
-        $("#form-2").hide();
-        $("#form-3").show();
-        $("#btn-form-1").removeClass("active");
-        $("#btn-form-2").removeClass("active");
-        $("#btn-form-3").addClass("active");
+            $("#form-1").hide();
+            $("#form-2").hide();
+            $("#form-3").show();
+            $("#btn-form-1").removeClass("active");
+            $("#btn-form-2").removeClass("active");
+            $("#btn-form-3").addClass("active");
         })
     // modal transaksi
     

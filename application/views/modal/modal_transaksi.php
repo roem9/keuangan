@@ -58,6 +58,10 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label for="">Alamat</label>
+                                <input type="text" name="alamat" id="" class="form-control form-control-sm" readonly>
+                            </div>
+                            <div class="form-group">
                                 <label for="uraian">Keterangan</label>
                                 <textarea name="uraian" id="uraian" class="form-control form-control-sm" required></textarea>
                             </div>
@@ -144,6 +148,10 @@
                                     <option value="Cash">Cash</option>
                                     <option value="Transfer">Transfer</option>
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Alamat</label>
+                                <input type="text" name="alamat" id="" class="form-control form-control-sm" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="uraian">Keterangan</label>
