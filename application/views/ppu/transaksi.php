@@ -18,11 +18,11 @@
                             <label for="jenis">Jenis</label>
                             <select name="jenis" id="jenis" class="form-control form-control-sm" required>
                                 <option value="">Pilih Jenis</option>
-                                <option value="Al-Quran">Al-Quran</option>
                                 <option value="Ambulance">Ambulance</option>
                                 <option value="Infaq">Infaq</option>
                                 <option value="P2J">P2J</option>
-                                <option value="Waqaf">Waqaf</option>
+                                <option value="Waqaf Al-Quran">Waqaf Al-Quran</option>
+                                <option value="Waqaf Gedung">Waqaf Gedung</option>
                                 <option value="Zakat">Zakat</option>
                                 <option value="Lainnya">Lainnya</option>
                             </select>
@@ -87,11 +87,11 @@
                         <label for="jenis">Jenis</label>
                         <select name="jenis" id="jenis" class="form-control form-control-sm" required>
                             <option value="">Pilih Jenis</option>
-                            <option value="Al-Quran">Al-Quran</option>
                             <option value="Ambulance">Ambulance</option>
                             <option value="Infaq">Infaq</option>
                             <option value="P2J">P2J</option>
-                            <option value="Waqaf">Waqaf</option>
+                            <option value="Waqaf Al-Quran">Waqaf Al-Quran</option>
+                            <option value="Waqaf Gedung">Waqaf Gedung</option>
                             <option value="Zakat">Zakat</option>
                             <option value="Lainnya">Lainnya</option>
                         </select>

@@ -106,7 +106,11 @@
         <p class="nama"><b><?= $data['nama']?></b></p>
         <p class="alamat"><b><?= $data['alamat']?></b></p>
         <p class="nominal"><b><?= ucfirst(terbilang($data['nominal']))?> rupiah</b></p>
-        <p class="jenis"><b><?= $data['jenis']?></b></p>
+		<?php if($data['jenis'] != ""):?>
+        	<p class="jenis"><b><?= $data['jenis']?> (<?= $data['keterangan']?>)</b></p>
+		<?php else :?>
+        	<p class="jenis"><b><?= $data['jenis']?></b></p>
+		<?php endif;?>
         <p class="uang"><b><?= rupiah($data['nominal'])?></b></p>
         <p class="tgl"><b><?= tgl_indo($data['tgl'])?></b></p>
 </body></html>

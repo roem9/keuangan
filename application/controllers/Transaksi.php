@@ -114,26 +114,32 @@ class Transaksi extends CI_CONTROLLER{
 
             $data['transaksi'] = [];
             $i = 0;
-            $cash = $this->Main_model->get_all("ppu_cash", "tgl between '$tgl_awal' AND '$tgl_akhir'");
-            foreach ($cash as $cash) {
-                $data['transaksi'][$i] = $cash;
-                $data['transaksi'][$i]['metode'] = "Cash";
-                $data['transaksi'][$i]['id'] = "PPU".$cash['id'];
-                $i++;
-            }
-
+            // $cash = $this->Main_model->get_all("ppu_cash", "tgl between '$tgl_awal' AND '$tgl_akhir'");
+            // foreach ($cash as $cash) {
+            //     $data['transaksi'][$i] = $cash;
+            //     $data['transaksi'][$i]['metode'] = "Cash";
+            //     $data['transaksi'][$i]['id'] = "PPU".$cash['id'];
+            //     $i++;
+            // }
+            $tgl = [];
+            
             $transfer = $this->Main_model->get_all("ppu_transfer", "tgl between '$tgl_awal' AND '$tgl_akhir'");
             foreach ($transfer as $transfer) {
+                $tgl[] = $transfer['tgl'];
                 $data['transaksi'][$i] = $transfer;
                 $data['transaksi'][$i]['metode'] = "Transfer";
                 $data['transaksi'][$i]['id'] = substr($transfer['id'],0, 3)."/PPU-Im/".date('m', strtotime($transfer['tgl']))."/".date('Y', strtotime($transfer['tgl']));
                 $i++;
             }
+            
+            $data['tgl'] = array_unique($tgl);
+            
+            usort($data['tgl'], function($a, $b) {
+                return $a <=> $b;
+            });
 
             usort($data['transaksi'], function($a, $b) {
                 return $a['tgl'] <=> $b['tgl'];
-                // if($a['tgl']==$b['tgl']) return 0;
-                // return $a['tgl'] < $b['tgl']?1:-1;
             });
 
             $this->load->view("ppu/laporan_ppu", $data);

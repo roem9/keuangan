@@ -56,16 +56,17 @@
                         <tr>
                             <th rowspan=2>No</th>
                             <th rowspan=2>Tanggal</th>
-                            <th rowspan=2>Nama</th>
                             <th rowspan=2>No. Kuitansi</th>
-                            <th rowspan=2>Infaq</th>
-                            <th rowspan=2>Waqaf</th>
-                            <th rowspan=2>Al-Quran</th>
-                            <th rowspan=2>Zakat</th>
+                            <th rowspan=2>Nama</th>
                             <th rowspan=2>Ambulance</th>
+                            <th rowspan=2>Infaq</th>
                             <th rowspan=2>P2J</th>
+                            <th rowspan=2>Waqaf Al-Quran</th>
+                            <th rowspan=2>Waqaf Gedung</th>
+                            <th rowspan=2>Zakat</th>
                             <th colspan=2>Lainnya</th>
                             <th rowspan=2>Keterangan</th>
+                            <th rowspan=2>Total</th>
                         </tr>
                         <tr>
                             <th>ket</th>
@@ -74,41 +75,95 @@
                     </thead>
                     <tbody>
                         <?php 
+                            $total = ["ambulance" => 0, "infaq" => 0, "p2j" => 0, "waqaf_al_quran" => 0, "waqaf_gedung" => 0, "zakat" => 0, "lainnya" => 0];
                             $no = 1;
-                            foreach ($transaksi as $data) :?>
-
-                            <tr>
-                                <td><?= $no++?></td>
-                                <td><?= $data['tgl']?></td>
-                                <td><?= $data['nama']?></td>
-                                <td><?= $data['id']?></td>
-                                <?php if($data['jenis'] == "Infaq") :?>
-                                    <td><?= rupiah($data['nominal'])?></td>
-                                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                                <?php elseif ($data['jenis'] == "Waqaf") :?>
-                                    <td></td><td><?= rupiah($data['nominal'])?></td>
-                                    <td></td><td></td><td></td><td></td><td></td><td></td>
-                                <?php elseif ($data['jenis'] == "Al-Quran") :?>
-                                    <td></td><td></td><td><?= rupiah($data['nominal'])?></td>
-                                    <td></td><td></td><td></td><td></td><td></td>
-                                <?php elseif ($data['jenis'] == "Zakat") :?>
-                                    <td></td><td></td><td></td><td><?= rupiah($data['nominal'])?></td>
-                                    <td></td><td></td><td></td><td></td>
-                                <?php elseif ($data['jenis'] == "Ambulance") :?>
-                                    <td></td><td></td><td></td><td></td><td><?= rupiah($data['nominal'])?></td>
-                                    <td></td><td></td><td></td>
-                                <?php elseif ($data['jenis'] == "P2J") :?>
-                                    <td></td><td></td><td></td><td></td><td></td><td><?= rupiah($data['nominal'])?></td>
-                                    <td></td><td></td>
-                                <?php else :?>
-                                    <td></td><td></td><td></td><td></td><td></td><td></td><td><?= $data['jenis']?></td><td><?= rupiah($data['nominal'])?></td>
-                                <?php endif;?>
-                                <td><?= $data['keterangan']?></td>
-                            </tr>
-
+                            foreach ($tgl as $tgl) :
+                                $subtotal = ["ambulance" => 0, "infaq" => 0, "p2j" => 0, "waqaf_al_quran" => 0, "waqaf_gedung" => 0, "zakat" => 0, "lainnya" => 0];
+                                foreach ($transaksi as $data) :   
+                                    if($data['tgl'] == $tgl) :
+                        ?>
+                                        <tr>
+                                            <td><?= $no++?></td>
+                                            <td><?= $data['tgl']?></td>
+                                            <td><?= $data['id']?></td>
+                                            <td><?= $data['nama']?></td>
+                                            <?php if ($data['jenis'] == "Ambulance") :
+                                                $subtotal['ambulance'] += $data['nominal'];
+                                            ?>
+                                                <td><?= rupiah($data['nominal'])?></td>
+                                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                            <?php elseif($data['jenis'] == "Infaq") :
+                                                $subtotal['infaq'] += $data['nominal'];
+                                            ?>
+                                                <td></td><td><?= rupiah($data['nominal'])?></td>
+                                                <td></td><td></td><td></td><td></td><td></td><td></td>
+                                            <?php elseif ($data['jenis'] == "P2J") :
+                                                $subtotal['p2j'] += $data['nominal'];
+                                            ?>
+                                                <td></td><td></td><td><?= rupiah($data['nominal'])?></td>
+                                                <td></td><td></td><td></td><td></td><td></td>
+                                            <?php elseif ($data['jenis'] == "Waqaf Al-Quran") :
+                                                $subtotal['waqaf_al_quran'] += $data['nominal'];
+                                            ?>
+                                                <td></td><td></td><td></td><td><?= rupiah($data['nominal'])?></td>
+                                                <td></td><td></td><td></td><td></td>
+                                            <?php elseif ($data['jenis'] == "Waqaf Gedung") :
+                                                $subtotal['waqaf_gedung'] += $data['nominal'];
+                                            ?>
+                                                <td></td><td></td><td></td><td></td><td><?= rupiah($data['nominal'])?></td>
+                                                <td></td><td></td><td></td>
+                                            <?php elseif ($data['jenis'] == "Zakat") :
+                                                $subtotal['zakat'] += $data['nominal'];
+                                            ?>
+                                                <td></td><td></td><td></td><td></td><td></td><td><?= rupiah($data['nominal'])?></td>
+                                                <td></td><td></td>
+                                            <?php else :
+                                                $subtotal['lainnya'] += $data['nominal'];
+                                            ?>
+                                                <td></td><td></td><td></td><td></td><td></td><td></td><td><?= $data['jenis']?></td><td><?= rupiah($data['nominal'])?></td>
+                                            <?php endif;?>
+                                            <td><?= $data['keterangan']?></td>
+                                        </tr>
+                        <?php
+                                    endif;
+                                endforeach;?>
+                                <tr style="background-color: yellow">
+                                    <td colspan="4">Subtotal</td>
+                                    <?php $total['ambulance'] += $subtotal['ambulance']?>
+                                    <td><?= rupiah($subtotal['ambulance'])?></td>
+                                    <?php $total['infaq'] += $subtotal['infaq']?>
+                                    <td><?= rupiah($subtotal['infaq'])?></td>
+                                    <?php $total['p2j'] += $subtotal['p2j']?>
+                                    <td><?= rupiah($subtotal['p2j'])?></td>
+                                    <?php $total['waqaf_al_quran'] += $subtotal['waqaf_al_quran']?>
+                                    <td><?= rupiah($subtotal['waqaf_al_quran'])?></td>
+                                    <?php $total['waqaf_gedung'] += $subtotal['waqaf_gedung']?>
+                                    <td><?= rupiah($subtotal['waqaf_gedung'])?></td>
+                                    <?php $total['zakat'] += $subtotal['zakat']?>
+                                    <td><?= rupiah($subtotal['zakat'])?></td>
+                                    <td></td>
+                                    <?php $total['lainnya'] += $subtotal['lainnya']?>
+                                    <td><?= rupiah($subtotal['lainnya'])?></td>
+                                    <td></td>
+                                    <td><?= rupiah($subtotal['ambulance'] + $subtotal['infaq'] + $subtotal['p2j'] + $subtotal['waqaf_al_quran'] + $subtotal['waqaf_gedung'] + $subtotal['zakat'] + $subtotal['lainnya'])?></td>
+                                </tr>
                         <?php
                             endforeach;
                         ?>
+                        <tr style="background-color: red">
+                            <td colspan="4">Total</td>
+                            <td><?= rupiah($total['ambulance'])?></td>
+                            <td><?= rupiah($total['infaq'])?></td>
+                            <td><?= rupiah($total['p2j'])?></td>
+                            <td><?= rupiah($total['waqaf_al_quran'])?></td>
+                            <td><?= rupiah($total['waqaf_gedung'])?></td>
+                            <td><?= rupiah($total['zakat'])?></td>
+                            <td></td>
+                            <td><?= rupiah($total['lainnya'])?></td>
+                            <td></td>
+                            <td><?= rupiah($total['ambulance'] + $total['infaq'] + $total['p2j'] + $total['waqaf_al_quran'] + $total['waqaf_gedung'] + $total['zakat'] + $total['lainnya'])?></td>
+                        </tr>
+                        
                     </tbody>
                 </table>
             </div>
