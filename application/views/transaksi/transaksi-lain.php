@@ -176,7 +176,7 @@
 </div>
 
 <script>
-    $("#piutang").addClass("active")
+    $("#lain").addClass("active")
 
     $("#metode").change(function(){
         let metode = $(this).val();

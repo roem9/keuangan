@@ -337,16 +337,22 @@
                     '<label for="uraian_invoice['+x+']">Uraian '+ urut +'</label>'+
                     '<textarea name="uraian['+x+']" id="uraian_invoice['+x+']" rows="2" class="form-control form-control-sm"></textarea>'+
                 '</div>'+
+                '<div class="form-group" id="o'+x+'">'+
+                    '<label for="satuan_invoice['+x+']">Satuan '+ urut +'</label>'+
+                    '<input type="text" name="satuan[]" id="satuan_invoice['+x+']" class="form-control form-control-sm">'+
+                '</div>'+
                 '<div class="form-group" id="n'+x+'">'+
                     '<label for="nominal_invoice['+x+']">Nominal '+ urut +'</label>'+
                     '<input type="text" name="nominal['+x+']" id="nominal_invoice['+x+']" class="form-control form-control-sm">'+
-                '</div>');
+                '</div>'
+                );
         })
 
         $("#hapus_uraian").click(function(e){
             e.preventDefault();
             $("#u"+x).remove();
             $("#n"+x).remove();
+            $("#o"+x).remove();
             x--;
             urut--;
         })
@@ -388,6 +394,10 @@
                         '<div class="form-group">'+
                             '<label for="uraian">Uraian '+ urut +'</label>'+
                             '<input type="text" name="uraian['+i+']" id="uraian" class="form-control form-control-sm" value="'+data[i].uraian+'">'+
+                        '</div>'+
+                        '<div class="form-group" id="o'+x+'">'+
+                            '<label for="satuan_invoice['+x+']">Satuan '+ urut +'</label>'+
+                            '<input type="text" name="satuan['+i+']" id="satuan_invoice['+x+']" class="form-control form-control-sm" value="'+data[i].satuan+'">'+
                         '</div>'+
                         '<div class="form-group">'+
                             '<label for="nominal">Nominal '+ urut +'</label>'+
@@ -513,6 +523,10 @@
     
     // validasi
         $("input[name='nominal']").keyup(function(){
+            $(this).val(formatRupiah(this.value, 'Rp. '))
+        })
+
+        $("input[name='satuan']").keyup(function(){
             $(this).val(formatRupiah(this.value, 'Rp. '))
         })
     // validasi

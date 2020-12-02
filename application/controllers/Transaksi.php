@@ -186,6 +186,31 @@ class Transaksi extends CI_CONTROLLER{
         $this->load->view("templates/footer");
     }
 
+    public function invoice(){
+        $data['title'] = "Invoice Lain-Lain";
+        $data['header'] = "Invoice Lain-Lain";
+
+        $data['invoice'] = [];
+        $invoice = $this->Main_model->get_all("invoice", "id_invoice NOT IN(SELECT id_invoice FROM invoice_peserta) AND id_invoice NOT IN(SELECT id_invoice FROM invoice_kelas) AND id_invoice NOT IN(SELECT id_invoice FROM invoice_kpq)", "tgl_invoice", "DESC");
+
+        foreach ($invoice as $i => $invoice) {
+            $data['invoice'][$i] = $invoice;
+            $uraian = $this->Main_model->get_all("invoice_uraian", ["id_invoice" => $invoice['id_invoice']]);
+            $total = 0;
+            foreach ($uraian as $uraian) {
+                $total += $uraian['nominal'];
+            }
+            $data['invoice'][$i]['total'] = $total;
+        }
+
+        $this->load->view("templates/header", $data);
+        $this->load->view("templates/sidebar");
+        $this->load->view('modal/modal_tambah_invoice');
+        $this->load->view('modal/modal_edit_invoice');
+        $this->load->view("menu/invoice-other", $data);
+        $this->load->view("templates/footer");
+    }
+
     // add data
         public function add_transaksi_lain(){
             $metode = $this->input->post("metode");

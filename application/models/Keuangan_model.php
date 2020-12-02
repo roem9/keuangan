@@ -801,6 +801,7 @@ class Keuangan_model extends CI_MODEL{
             foreach ($_POST['uraian'] as $i => $detail) {
                 $data['uraian'] = [
                     "uraian" => $_POST['uraian'][$i],
+                    "satuan" => $_POST['satuan'][$i],
                     "nominal" => $_POST['nominal'][$i],
                     "id_invoice" => $id
                 ];
@@ -841,10 +842,13 @@ class Keuangan_model extends CI_MODEL{
         public function add_uraian(){
             $data = [
                 "uraian" => $this->input->post("uraian"),
-                "nominal" => $this->input->post("nominal"),
+                "satuan" => $this->ganti_nominal($this->input->post("satuan")),
+                "nominal" => $this->ganti_nominal($this->input->post("nominal")),
                 "id_invoice" => $this->input->post("id")
             ];
-
+            // var_dump($data);
+            // exit();
+            
             $this->db->insert("invoice_uraian", $data);
         }
         
@@ -1097,6 +1101,7 @@ class Keuangan_model extends CI_MODEL{
             foreach ($_POST['uraian'] as $i => $uraian) {
                 $data = [
                     "uraian" => $_POST['uraian'][$i],
+                    "satuan" => $_POST['satuan'][$i],
                     "nominal" => $_POST['nominal'][$i]
                 ];
                 
@@ -1138,10 +1143,10 @@ class Keuangan_model extends CI_MODEL{
 
     // other function
         public function ganti_nominal($nominal){
-            $nominal = $this->input->post('nominal', true);
-            $nominal = str_replace("Rp. ", "", $nominal);
-            $nominal = str_replace(".", "", $nominal);
-            return $nominal;
+            // $nominal = $this->input->post('nominal', true);
+            $angka = str_replace("Rp. ", "", $nominal);
+            $angka = str_replace(".", "", $angka);
+            return $angka;
         }
 
         public function start_transaction(){

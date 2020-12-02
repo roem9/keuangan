@@ -56,6 +56,10 @@
                             <label for="uraian">Uraian</label>
                             <input type="text" name="uraian" id="uraian" class="form-control form-control-sm">
                         </div>
+                        <div class="form-group">
+                            <label for="satuan_invoice">Satuan</label>
+                            <input type="text" name="satuan" id="satuan_invoice" class="form-control form-control-sm">
+                        </div>
                         <div class="form-gro">
                             <label for="nominal">Nominal</label>
                             <input type="text" name="nominal" id="nominal" class="form-control form-control-sm">

@@ -255,6 +255,7 @@ class KartuPiutang extends CI_CONTROLLER{
             $this->load->view('piutang/kartu-piutang-peserta', $data);
             $this->load->view('templates/footer');
         }
+
     // page
     
     public function getDataPeserta(){

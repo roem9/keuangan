@@ -111,7 +111,7 @@
                 <tr>
                     <td><center><?= ++$no?></center></td>
                     <td><?= $detail['uraian']?></td>
-                    <td><?= rupiah($detail['nominal'])?></td>
+                    <td><?= rupiah($detail['satuan'])?></td>
                     <td><?= rupiah($detail['nominal'])?></td>
                 </tr>
             <?php 

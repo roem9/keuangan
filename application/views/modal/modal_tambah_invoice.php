@@ -25,6 +25,10 @@
                   <textarea name="uraian[]" id="uraian_invoice[0]" rows="2" class="form-control form-control-sm"></textarea>
               </div>
               <div class="form-group">
+                  <label for="satuan_invoice[0]">Satuan 1</label>
+                  <input type="text" name="satuan[]" id="satuan_invoice[0]" class="form-control form-control-sm">
+              </div>
+              <div class="form-group">
                   <label for="nominal_invoice[0]">Nominal 1</label>
                   <input type="text" name="nominal[]" id="nominal_invoice[0]" class="form-control form-control-sm">
               </div>

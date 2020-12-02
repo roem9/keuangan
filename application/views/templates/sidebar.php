@@ -49,8 +49,22 @@
             <a class="collapse-item text-light" href="<?=base_url()?>piutang/pvluar">Piutang PV Luar</a>
             <a class="collapse-item text-light" href="<?=base_url()?>piutang/pvinstansi">Piutang PV Instansi</a>
             <a class="collapse-item text-light" href="<?=base_url()?>piutang/kpq">Piutang Civitas</a>
-            <a class="collapse-item text-light" href="<?=base_url()?>transaksi/lainnya">Transaksi Lainnya</a>
             <a class="collapse-item text-light bg-danger" onclick="return confirm('Apakah Anda yakin akan mengenerate piutang?')" href="<?=base_url()?>piutang/generatepiutang">Generate Piutang</a>
+          </div>
+        </div>
+      </li>
+
+
+      <li class="nav-item" id="lain">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#dropthree" aria-expanded="true" aria-controls="dropthree">
+          <i class="fas fa-fw fa-money-check-alt"></i>
+          <span>Transaksi Lain</span>
+        </a>
+        <div id="dropthree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-primary py-2 collapse-inner rounded">
+            <h6 class="collapse-header text-light">Transaksi Lain</h6>
+            <a class="collapse-item text-light" href="<?=base_url()?>transaksi/invoice">Invoice Lainnya</a>
+            <a class="collapse-item text-light" href="<?=base_url()?>transaksi/lainnya">Transaksi Lainnya</a>
           </div>
         </div>
       </li>
