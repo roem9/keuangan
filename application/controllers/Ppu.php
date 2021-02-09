@@ -188,7 +188,7 @@ class Ppu extends CI_CONTROLLER{
 
     // edit 
         public function edit_transaksi(){
-            var_dump($_POST);
+            // var_dump($_POST);
             if($this->input->post("lainnya", TRUE)){
                 $jenis = $this->input->post("lainnya", TRUE);
             } else {

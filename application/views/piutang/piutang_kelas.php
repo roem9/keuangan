@@ -282,4 +282,6 @@
         $("#btnModalEditPj").click(function(){
             var c = confirm("Yakin akan mengubah data pj?")
         })
+    // submit 
+    
 </script>

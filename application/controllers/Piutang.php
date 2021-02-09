@@ -160,7 +160,7 @@
             $this->load->view('templates/footer');
         }
 
-        public function generatePiutang(){
+        public function generatePiutangPrivat(){
             $bulan = ["1" => "Januari", "2" => "Februari", "3" => "Maret", "4" => "April", "5" => "Mei", "6" => "Juni", "7" => "Juli", "8" => "Agustus", "9" => "September", "10" => "Oktober", "11" => "November", "12" => "Desember"];
 
             $kelas = $this->Keuangan_model->getAllKelasPvAktif();
@@ -220,7 +220,15 @@
 
                 $this->Keuangan_model->insert_tagihan_kelas($data);
             }
+
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">Berhasil <strong>mengenerate</strong> piutang peserta privat<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             
+            redirect('piutang/pvluar');
+        }
+        
+        public function generatePiutangReguler(){
+            $bulan = ["1" => "Januari", "2" => "Februari", "3" => "Maret", "4" => "April", "5" => "Mei", "6" => "Juni", "7" => "Juli", "8" => "Agustus", "9" => "September", "10" => "Oktober", "11" => "November", "12" => "Desember"];
+
             $reguler = $this->Keuangan_model->getInfaqByKet("reguler");
             $peserta = $this->Keuangan_model->getAllPesertaRegulerAktif();
             $uraian = $bulan[date('n')] . " " . date('Y');
@@ -249,7 +257,7 @@
 
             }
 
-            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">Berhasil <strong>mengenerate</strong> piutang<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">Berhasil <strong>mengenerate</strong> piutang peserta reguler<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             
             redirect('piutang/pvluar');
         }
